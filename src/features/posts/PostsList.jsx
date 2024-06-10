@@ -1,26 +1,11 @@
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectAllPosts,
-  getPostsStatus,
-  getPostsError,
-  fetchPosts,
-} from "./postSlice";
+import { useSelector } from "react-redux";
+import { selectAllPosts, getPostsStatus, getPostsError } from "./postSlice";
 import PostsExcerpt from "./PostsExcerpt";
 
-import { useEffect } from "react";
-
 const PostsList = () => {
-  const dispatch = useDispatch();
-
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
-
-  useEffect(() => {
-    if (postsStatus === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [postsStatus, dispatch]);
 
   let content;
   if (postsStatus === "loading") {
@@ -75,8 +60,7 @@ const PostsList = () => {
   }
   return (
     <section className="flex justify-start flex-col items-center min-h-lvh bg-gray-600">
-      <h2 className="text-4xl  mt-10 font-bold mb-7 text-white">Posts</h2>
-      {content}
+      <div className="mt-6">{content}</div>
     </section>
   );
 };

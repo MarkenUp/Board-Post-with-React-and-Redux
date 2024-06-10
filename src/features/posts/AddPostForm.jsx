@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addNewPost } from "./postSlice";
 import { selectAllUsers } from "../users/UsersSlice";
@@ -10,6 +11,7 @@ const AddPostForm = () => {
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
   const [addRequestStatus, setAddRequestStatus] = useState("idle");
+  const navigate = useNavigate();
 
   const users = useSelector(selectAllUsers);
 
@@ -29,6 +31,7 @@ const AddPostForm = () => {
         setTitle("");
         setContent("");
         setUserId("");
+        navigate("/");
       } catch (err) {
         console.error("Failed to save the post", err);
       } finally {
@@ -48,7 +51,7 @@ const AddPostForm = () => {
   ));
 
   return (
-    <section className="flex justify-start flex-col items-center bg-gray-600">
+    <section className="flex justify-start flex-col items-center min-h-svh bg-gray-600">
       <h2 className="text-3xl font-bold mb-4 mt-5 text-white">Add New Post</h2>
       <form className="flex flex-col w-9/12 mt-4">
         <label htmlFor="postTitle" className="text-lg font-semibold text-white">
